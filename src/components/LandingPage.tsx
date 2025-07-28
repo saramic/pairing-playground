@@ -1,6 +1,6 @@
 import React from "react";
 
-export function LandingPage() {
+export default function LandingPage() {
   return (
     <>
       <h1>Pairing Playground</h1>

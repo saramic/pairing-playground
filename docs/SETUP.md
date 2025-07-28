@@ -29,9 +29,11 @@ npm install \
     express
 
 # Development dependencies (Vite handles most build tools)
-npm install --save-dev \
+npm install \
   vite \
   @vitejs/plugin-react \
+
+npm install --save-dev \
   typescript \
   @types/node \
   @types/express
@@ -102,14 +104,12 @@ EOF
 
 ```sh
 cat <<EOF > src/App.tsx
+import React from "react";
+
 import { LandingPage } from "./components/LandingPage";
 
 function App() {
-  return (
-    <>
-      <LandingPage />
-    </>
-  );
+  return <LandingPage />
 }
 
 export default App;
@@ -124,7 +124,7 @@ mkdir src/components
 cat <<EOF > src/components/LandingPage.tsx
 import React from "react";
 
-export function LandingPage() {
+export default function LandingPage() {
   return (
     <>
       <h1>Pairing Playground</h1>
@@ -205,4 +205,94 @@ test it
 npm run dev
 open http://localhost:5174/
 curl http://localhost:5174/api/health
+```
+
+## 9. Linting & Formatting
+
+install ESLint
+
+```
+npm install --save-dev \
+    eslint \
+    eslint-config-airbnb \
+    eslint-plugin-import \
+    eslint-plugin-react \
+    eslint-plugin-react-hooks \
+    eslint-plugin-jsx-a11y \
+    eslint-config-airbnb-typescript \
+    @typescript-eslint/eslint-plugin \
+    @typescript-eslint/parser
+```
+
+and `prettier` for **Formatting**
+
+```sh
+npm install --save-dev \
+    prettier \
+    eslint-config-prettier
+```
+
+add some `.eslintrc.json` configuration
+
+```sh
+cat <<EOF > .eslintrc.json
+{
+  "extends": [
+    "eslint:recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "prettier" // Must be the last item
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}
+EOF
+```
+
+and some `.eslintrc.json` configuration
+
+```sh
+cat <<EOF > .eslintrc.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src", "vite.config.js"]
+}
+EOF
+```
+
+add script to run `lint` and `format`
+
+```sh
+# npm run lint
+echo $(jq '.scripts.lint="eslint ."' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+
+# npm run lint:fix
+echo $(jq '.scripts["lint:fix"]="eslint . --fix"' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+
+# npm run format
+echo $(jq '.scripts.format="prettier --write ."' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+
+# npm run format:check
+echo $(jq '.scripts["format:check"]="prettier --check ."' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
 ```
