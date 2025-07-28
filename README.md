@@ -5,7 +5,9 @@
 ## TL;DR
 
 ```sh
-make && make build
+make                # show usage instructions
+make build          # run simple build
+make full-build     # run full build including E2E tests
 ```
 
 ## Architecture

@@ -13,6 +13,7 @@ module.exports = {
       files: [
         "vite.config.js",
         "vitest.config.ts",
+        "playwright.config.ts",
         "**/*.test.{js,jsx,ts,tsx}",
         "**/setupTests.{js,ts,tsx}",
       ],

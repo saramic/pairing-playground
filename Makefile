@@ -42,8 +42,17 @@ format-check:
 test-check:
 	npm run test:check
 
+.PHONY: test-e2e
+test-e2e:
+	npm run test:e2e
+
 .PHONY: build
 build: check install lint format-check test-check
+	@echo
+	@echo "✅ ${GREEN}Success${RESET} you are ready to ${BOLD}${MAGENTA}PAIR 🍐 🤘${RESET}\n"
+
+.PHONY: full-build
+full-build: build test-e2e
 	@echo
 	@echo "✅ ${GREEN}Success${RESET} you are ready to ${BOLD}${MAGENTA}PAIR 🍐 🤘${RESET}\n"
 

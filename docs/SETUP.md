@@ -209,7 +209,7 @@ curl http://localhost:5174/api/health
 
 install ESLint
 
-```
+```sh
 npm install --save-dev \
     eslint \
     eslint-config-airbnb \
@@ -220,6 +220,18 @@ npm install --save-dev \
     eslint-config-airbnb-typescript \
     @typescript-eslint/eslint-plugin \
     @typescript-eslint/parser
+```
+
+**NOTE:** may need to downgrade typescript to `>=4.7.4 <5.6.0` as supported by
+`@typescript-eslint/typescript-estree.`
+
+```sh
+  # in package.json
+  "devDependencies": {
+    ...
+    "typescript": "<5.6",
+
+npm install
 ```
 
 and `prettier` for **Formatting**
@@ -336,4 +348,58 @@ npm run test:check
 
 # full build script
 make build
+```
+
+### E2E testing
+
+add playwrite for E2E (End to End) testing
+
+```sh
+npm install --save-dev @playwright/test
+```
+
+some `.gitignore`'s
+
+```sh
+cat <<EOF >> .gitignore
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+EOF
+```
+
+```sh
+# npm run test:e2e
+echo $(jq '.scripts["test:e2e"]="playwright test"' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+
+# npm run test:e2e:ui
+echo $(jq '.scripts["test:e2e:ui"]="playwright test --ui"' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+
+# npm run test:e2e:headed
+echo $(jq '.scripts["test:e2e:headed"]="playwright test --headed"' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+```
+
+add some configuration
+
+```sh
+playwright.config.ts
+```
+
+add some tests
+
+```sh
+e2e/api-health-check.spec.ts
+e2e/landing-page.spec.ts
+```
+
+and update gitbuild scripts and run the E2E in a separate GitHub Action Task
+
+```sh
+.github/workflows/tests.yml
 ```
