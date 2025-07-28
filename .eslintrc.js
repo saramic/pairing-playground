@@ -8,6 +8,7 @@ module.exports = {
   parserOptions: {
     project: "./tsconfig.json",
   },
+  ignorePatterns: ["playwright-report/**", "test-results/**"],
   overrides: [
     {
       files: [

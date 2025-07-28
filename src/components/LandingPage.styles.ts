@@ -4,7 +4,6 @@ export const Container = styled.div`
   padding: 40px 24px;
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
 `;
 
 export const MainTitle = styled.h1`
@@ -25,13 +24,4 @@ export const SubTitle = styled.h3`
 
 export const Content = styled.div`
   margin-top: 24px;
-`;
-
-export const Description = styled.p`
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #595959;
-  margin: 0;
-  max-width: 600px;
-  margin: 0 auto;
 `;

@@ -428,11 +428,18 @@ npm install --save-dev @types/styled-components
 
 add a global style
 
-```
+```sh
 src/App.styles.ts
 ```
 
 and other styling as required
+
+Also fix for using react 19 https://ant.design/docs/react/v5-for-19
+
+```sh
+npm install --save \
+  @ant-design/v5-patch-for-react-19
+```
 
 ## 12. Further improvements
 
