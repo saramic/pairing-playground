@@ -29,11 +29,9 @@ npm install \
     express
 
 # Development dependencies (Vite handles most build tools)
-npm install \
+npm install --save-dev \
   vite \
   @vitejs/plugin-react \
-
-npm install --save-dev \
   typescript \
   @types/node \
   @types/express
@@ -232,28 +230,29 @@ npm install --save-dev \
     eslint-config-prettier
 ```
 
-add some `.eslintrc.json` configuration
+add some `.eslintrc.js` configuration
 
 ```sh
-cat <<EOF > .eslintrc.json
-{
-  "extends": [
+cat <<EOF > .eslintrc.js
+module.exports = {
+  extends: [
     "eslint:recommended",
     "airbnb",
     "airbnb-typescript",
-    "prettier" // Must be the last item
+    "prettier", // Must be the last item
   ],
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  }
-}
+  parserOptions: {
+    project: "./tsconfig.json",
+  },
+};
+
 EOF
 ```
 
-and some `.eslintrc.json` configuration
+and some `.tsconfig.json` configuration
 
 ```sh
-cat <<EOF > .eslintrc.json
+cat <<EOF > .tsconfig.json
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -295,4 +294,46 @@ echo $(jq '.scripts.format="prettier --write ."' package.json) | jq . \
 # npm run format:check
 echo $(jq '.scripts["format:check"]="prettier --check ."' package.json) | jq . \
  | > package_new.json && mv package{\_new,}.json
+```
+
+## 10. Testing
+
+### Unit Testing
+
+using `vitest` which is similar to `Jest` but easier to setup with `vite`,
+`typescript` and `.tsx` files.
+
+```sh
+npm install --save-dev \
+    vitest \
+    @vitest/ui \
+    jsdom \
+    @testing-library/react \
+    @testing-library/jest-dom
+```
+
+add `test` scripts to `package.json`
+
+```sh
+# npm test
+echo $(jq '.scripts.test="vitest"' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+
+# npm run test:check
+echo $(jq '.scripts["test:check"]="vitest --run"' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+```
+
+A basic testin `src/components/LandingPage.test.tsx`
+
+a `vitest.config.ts` and `src/setupTests.ts` file
+
+and update the `Makefile` and now you can run
+
+```sh
+npm test
+npm run test:check
+
+# full build script
+make build
 ```
