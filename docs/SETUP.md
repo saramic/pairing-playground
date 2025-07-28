@@ -403,3 +403,46 @@ and update gitbuild scripts and run the E2E in a separate GitHub Action Task
 ```sh
 .github/workflows/tests.yml
 ```
+
+### A11y (Accessibility) testing
+
+```sh
+npm install --save-dev \
+  jest-axe \
+  @types/jest-axe
+```
+
+## 11. Further improvements
+
+- design system
+
+  ```sh
+  # Ant Design
+  npm install antd
+  npm install --save-dev @types/antd
+
+  # and styled components
+  npm install styled-components
+  npm install --save-dev @types/styled-components
+  ```
+
+- feature flags
+
+  ```sh
+  npm install \
+    @openfeature/web-sdk \
+    @openfeature/flagd-provider
+  ```
+
+- run in docker
+
+  ```sh
+  # dockerfile
+  FROM node:22.17.1-alpine
+  WORKDIR /app
+  COPY package*.json ./
+  RUN npm ci
+  COPY . .
+  EXPOSE 3001 5173
+  CMD ["npm", "run", "dev"]
+  ```
