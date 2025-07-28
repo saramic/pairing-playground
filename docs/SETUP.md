@@ -412,19 +412,29 @@ npm install --save-dev \
   @types/jest-axe
 ```
 
-## 11. Further improvements
+## 11. UI Styling
 
-- design system
+Add https://ant.design/
 
-  ```sh
-  # Ant Design
-  npm install antd
-  npm install --save-dev @types/antd
+```sh
+# Ant Design
+npm install antd
+npm install --save-dev @types/antd
 
-  # and styled components
-  npm install styled-components
-  npm install --save-dev @types/styled-components
-  ```
+# and styled components
+npm install styled-components
+npm install --save-dev @types/styled-components
+```
+
+add a global style
+
+```
+src/App.styles.ts
+```
+
+and other styling as required
+
+## 12. Further improvements
 
 - feature flags
 
