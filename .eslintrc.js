@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
     "eslint:recommended",
+    "plugin:react/recommended",
     "airbnb",
     "airbnb-typescript",
     "prettier", // Must be the last item
@@ -9,6 +10,9 @@ module.exports = {
     project: "./tsconfig.json",
   },
   ignorePatterns: ["playwright-report/**", "test-results/**"],
+  rules: {
+    "react/react-in-jsx-scope": "off",
+  },
   overrides: [
     {
       files: [

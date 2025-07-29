@@ -1,4 +1,3 @@
-import React from "react";
 import { GlobalStyle } from "./App.styles";
 import "@ant-design/v5-patch-for-react-19";
 

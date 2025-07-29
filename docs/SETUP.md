@@ -102,8 +102,6 @@ EOF
 
 ```sh
 cat <<EOF > src/App.tsx
-import React from "react";
-
 import { LandingPage } from "./components/LandingPage";
 
 function App() {
@@ -120,8 +118,6 @@ EOF
 mkdir src/components
 
 cat <<EOF > src/components/LandingPage.tsx
-import React from "react";
-
 export default function LandingPage() {
   return (
     <>
@@ -249,6 +245,7 @@ cat <<EOF > .eslintrc.js
 module.exports = {
   extends: [
     "eslint:recommended",
+    "plugin:react/recommended",
     "airbnb",
     "airbnb-typescript",
     "prettier", // Must be the last item
@@ -256,8 +253,10 @@ module.exports = {
   parserOptions: {
     project: "./tsconfig.json",
   },
+  rules: {
+    "react/react-in-jsx-scope": "off",
+  },
 };
-
 EOF
 ```
 

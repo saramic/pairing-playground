@@ -1,6 +1,7 @@
-import React from "react";
-import { Form, Button } from "antd";
+import { useState } from "react";
 import TextArea from "antd/es/input/TextArea";
+import Form from "antd/es/form";
+import Button from "antd/es/button";
 import { Container, MainTitle, SubTitle, Content } from "./LandingPage.styles";
 
 interface ResponseBody {
@@ -12,8 +13,9 @@ interface ResponseBody {
 
 function LandingPage() {
   const [form] = Form.useForm();
-  const [submitResponse, setSubmitResponse] =
-    React.useState<ResponseBody | null>(null);
+  const [submitResponse, setSubmitResponse] = useState<ResponseBody | null>(
+    null,
+  );
 
   const onFinish = async (formData: { message: string }) => {
     const response = await fetch("/api/submit", {
