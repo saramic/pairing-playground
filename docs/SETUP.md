@@ -440,7 +440,66 @@ npm install --save \
   @ant-design/v5-patch-for-react-19
 ```
 
-## 12. Further improvements
+## 12. Coverage reporting
+
+install vitest coverage with `v8`
+
+```sh
+npm install --save-dev @vitest/coverage-v8
+```
+
+and some configuration to ``
+
+```typescript
+coverage: {
+  provider: "v8",
+  exclude: [
+    "*.config.{ts,js}", // Excludes all config files
+    ".*.{ts,js}", // Excludes all hidden files
+    "**/*.styles.ts", // Excludes all style files
+  ],
+  all: true,
+  thresholds: {
+    lines: 90,
+    functions: 90,
+    branches: 90,
+    statements: 90,
+  },
+},
+```
+
+add a test runner including coverage `npm run test:unit:coverage`
+
+```sh
+# npm run lint
+echo $(jq '.scripts["test:unit:coverage"]="vitest run --coverage"' package.json) | jq . \
+ | > package_new.json && mv package{\_new,}.json
+```
+
+and update the `make build` to use it in the `Makefile`
+
+NOTE: _this also requires that you have sufficent coverage to pass the build_
+
+## 13. API Error and Delay simulator
+
+Add the ability to slow down the API responses
+
+```sh
+# in vite.config.js
+app.use(apiErrorAndDelaySimulator);
+```
+
+can be run with environment variables `API_DELAY` and/or `API_FAILURE_RATE`
+
+```sh
+# add a 1 second delay
+API_DELAY=1000 npm run dev
+
+# 50% failure rate
+API_FAILURE_RATE=0.5 npm run dev
+```
+
+## 14. Further improvements
 
 - feature flags
 

@@ -34,7 +34,7 @@ function LandingPage() {
       <SubTitle>This is where the magic happens</SubTitle>
       <Content>
         {submitResponse && (
-          <div>
+          <div data-testid="submit-response">
             <h3>Response:</h3>
             <pre>{JSON.stringify(submitResponse, null, 2)}</pre>
           </div>
