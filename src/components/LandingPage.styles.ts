@@ -14,7 +14,7 @@ export const MainTitle = styled.h1`
   line-height: 1.2;
 `;
 
-export const SubTitle = styled.h3`
+export const SubTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 400;
   margin: 0 0 24px 0;
